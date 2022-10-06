@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import useFetch from "../src/hooks/useFetch";
 
@@ -10,14 +9,15 @@ function App() {
 
   const weatherData = useFetch(url);
 
-  console.log(weatherData);
+  const times = [weatherData?.data?.hourly?.time];
+  const temps = [weatherData?.data?.hourly?.temperature_2m];
 
   return (
     <div className="App">
       <header className="App-header">
-        {weatherData?.data?.hourly?.time?.map((hour) => (
-          <p>{hour}</p>
-        ))}
+        <h1>Weather forecast for Oslo</h1>
+        {times && <span>{times[0][0]}</span>}
+        {times && <span>{temps[0][0]}</span>}
       </header>
     </div>
   );

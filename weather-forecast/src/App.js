@@ -1,23 +1,40 @@
 import "./App.css";
-import useFetch from "../src/hooks/useFetch";
+import { useState, useEffect } from "react";
 
 function App() {
-  // Free open source weather api from https://open-meteo.com/en/docs
+  // Free weather API from https://openweathermap.org/current
+  const [data, setData] = useState([]);
 
-  const url =
-    "https://api.open-meteo.com/v1/forecast?latitude=59.9138&longitude=10.7387&hourly=temperature_2m&past_days=3";
+  const APIkey = "afcb135dee380f3782256ab20d8067b2";
+  const lat = "59.9139";
+  const lon = "10.7522";
+  const cityName = "Oslo";
 
-  const weatherData = useFetch(url);
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`;
 
-  const times = [weatherData?.data?.hourly?.time];
-  const temps = [weatherData?.data?.hourly?.temperature_2m];
+  useEffect(() => {
+    const weather = fetch(url)
+      .then((response) => response.json())
+      .then((data) => setData(data));
+  }, []);
+
+  // const name = data?.name;
+  // const icon = data?.weather[0]?.icon;
+  // const humidity = data?.main;
+  // const speed = data?.wind;
+  // let temp = data?.main;
+  // temp = Math.round(temp - 273.15);
+
+  const temp = Math.round(data?.main?.temp - 273.15);
+  // const description = data?.weather[0]?.description;
+  console.log(temp);
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Weather forecast for Oslo</h1>
-        {times && <span>{times[0][0]}</span>}
-        {times && <span>{temps[0][0]}</span>}
+        <h1>{`Weather in ${cityName}`}</h1>
+        <p>{data?.name}</p>
+        <p>{temp} Celcius</p>
       </header>
     </div>
   );

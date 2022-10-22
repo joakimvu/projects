@@ -4,75 +4,96 @@ import { useState, useEffect } from "react";
 function App() {
   // Free weather API from https://openweathermap.org/current
   const [data, setData] = useState([]);
-  const [city, setCity] = useState("Halden");
-  const [cords, setCords] = useState("");
+  const [city, setCity] = useState("Oslo");
+  // const [cords, setCords] = useState([]);
+  const [lat, setLat] = useState("59.9133301");
+  const [lon, setLon] = useState("10.7389701");
+  const [cityList, setCityList] = useState([]);
 
   const APIkey = "afcb135dee380f3782256ab20d8067b2";
-  // const lat = "59.9139";
-  // const lon = "10.7522";
-  // let cityName = "Oslo";
 
-  const cityAPI = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${APIkey}`;
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${cords?.lat}&lon=${cords?.lon}&appid=${APIkey}`;
+  const cityAPI = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${APIkey}`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`;
 
   useEffect(() => {
     fetch(cityAPI)
       .then((response) => response.json())
-      .then((data) => setCords(data[0]));
+      // .then((data) => setCords(data[0]));
+      .then((data) => setCityList(data));
   }, [city]);
+  console.log(city);
 
-  // console.log(cords);
-
-  // console.log(cords[0]?.lat);
-  // console.log(cords[0]?.long);
-
-  // Fetch weather from
-  const getWeather = () => {};
-  // useEffect(() => {
-  //   const weather = fetch(url)
-  //     .then((response) => response.json())
-  //     .then((data) => setData(data));
-  // }, []);
   const temp = Math.round(data?.main?.temp - 273.15);
+
+  const convertAlphaCodeToCountry = () => {};
 
   // Saving input
   const handleChange = (e) => {
     setCity(e.target.value);
   };
 
-  // Checking weather for given city
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // fetching weather data
+  const fetchingWeatherData = () => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => setData(data));
-    console.log(data);
+  };
+  // Checking weather for given city
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetchingWeatherData();
+  };
+
+  // Handle chosen city from search suggestions
+  const handleChosenCountry = async (e) => {
+    e.preventDefault();
+
+    const cord = e.target.value.split(",");
+    setLat(cord[0]);
+    setLon(cord[1]);
+
+    fetchingWeatherData();
+    console.log(cord);
   };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>{`Weather Forecast`}</h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            onChange={handleChange}
-            type="text"
-            value={city}
-            placeholder="Search for a city"
-          />
-          {/* <ul id="programmingLanguages">
-            <option value="C++">C++</option>
-            <option value="C#">C#</option>
-            <option value="Java">Java</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="Python">Python</option>
-          </ul> */}
-          <button type="submit">Search</button>
-        </form>
+      <main className="App-main">
+        <div className="content">
+          <h1>{`Weather Forecast`}</h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              onChange={handleChange}
+              type="text"
+              value={city}
+              placeholder="Search for a city"
+            />
 
-        <p>{data?.name}</p>
-        <p>{temp} Celcius</p>
-      </header>
+            <button type="submit" className="submit-btn">
+              Search
+            </button>
+          </form>
+
+          {cityList && cityList.length >= 0 ? (
+            <ul className="search-suggestions">
+              {cityList?.map((city, index) => (
+                <li key={index}>
+                  <button
+                    type="button"
+                    value={[city?.lat, city?.lon]}
+                    onClick={handleChosenCountry}
+                  >
+                    {city?.name} {city?.country}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+
+          <p>{data?.name}</p>
+          {temp ? <p>{temp} Celcius</p> : null}
+        </div>
+      </main>
     </div>
   );
 }

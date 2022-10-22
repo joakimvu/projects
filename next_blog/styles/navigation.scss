@@ -1,0 +1,32 @@
+.navbar {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+  border-bottom: 1px solid #f2f2f2;
+
+  h1 {
+    color: #247ad5;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    margin-left: auto;
+    display: flex;
+  }
+
+  a {
+    margin-left: 16px;
+    padding: 6px;
+
+    &:hover {
+      color: #247ad5;
+      font-weight: 700;
+    }
+  }
+}

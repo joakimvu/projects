@@ -1,0 +1,28 @@
+{
+  "blogs": [
+    {
+      "title": "Next Intro",
+      "body": "I denne modulen skal vi se på hva Next.js er, hvordan Next fungerer og hvordan vi kan bruke Next til å lage et enkelt API.",
+      "author": "joakim",
+      "id": 1
+    },
+    {
+      "title": "MAGNUS CARLSEN OM SJAKK-KAOSET",
+      "body": "Han trakk seg fra turneringen dagen etter at han tapte for den amerikanske tenåringen Hans Niemann (19). Deretter har han nektet å møte Niemann i en online-turnering, han har anklaget Niemann for omfattende juks og chess.com har konkludert med at amerikaneren har jukset i over 100 partier.\n\nSjakkverden er rystet og i Norge har til og med sjakkpresidenten innrømmet juks, i kjølvannet av Carlsens tydelige markeringer.",
+      "author": "joakim",
+      "id": 2
+    },
+    {
+      "title": "KLIMABUDSJETT- BARNET",
+      "body": "BJØLSEN (VG) Innen Alma Mellblom Theissen (11) får stemmerett, skal Norge ha rukket å halvere sine klimagassutslipp. Torsdag kom svaret på om vi er i rute.\n\nAlma Mellblom Theissen (11) elsker å klatre i trær, har spilt i en musikal og har nylig fått selskap av hamstret Hermes på barnerommet på Bjølsen i Oslo.",
+      "author": "joakim",
+      "id": 3
+    },
+    {
+      "title": "Fare for flom",
+      "body": "Varsom.no oppgraderte fredag varslingsnivået fra gult til oransje for deler av Vestlandet og advarte om at det kan bli omfattende oversvømmelser, erosjonsskader og flomskader på utsatte steder.",
+      "author": "stig",
+      "id": 4
+    }
+  ]
+}

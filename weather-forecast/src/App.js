@@ -21,11 +21,7 @@ function App() {
       // .then((data) => setCords(data[0]));
       .then((data) => setCityList(data));
   }, [city]);
-  console.log(city);
-
   const temp = Math.round(data?.main?.temp - 273.15);
-
-  const convertAlphaCodeToCountry = () => {};
 
   // Saving input
   const handleChange = (e) => {
@@ -33,27 +29,32 @@ function App() {
   };
 
   // fetching weather data
-  const fetchingWeatherData = () => {
+  useEffect(() => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => setData(data));
-  };
+  }, [lat, lon]);
+
+  // const fetchingWeatherData = () => {
+  //   fetch(url)
+  //     .then((response) => response.json())
+  //     .then((data) => setData(data));
+  // };
+
   // Checking weather for given city
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchingWeatherData();
+    console.log(lat, lon);
+    // fetchingWeatherData();
   };
 
   // Handle chosen city from search suggestions
   const handleChosenCountry = async (e) => {
     e.preventDefault();
-
     const cord = e.target.value.split(",");
     setLat(cord[0]);
     setLon(cord[1]);
-
-    fetchingWeatherData();
-    console.log(cord);
+    // fetchingWeatherData();
   };
 
   return (

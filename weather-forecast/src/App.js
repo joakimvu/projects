@@ -9,6 +9,7 @@ function App() {
   const [lat, setLat] = useState("59.9133301");
   const [lon, setLon] = useState("10.7389701");
   const [cityList, setCityList] = useState([]);
+  const [showPreview, setShowPreview] = useState(false);
 
   const APIkey = "afcb135dee380f3782256ab20d8067b2";
 
@@ -16,10 +17,16 @@ function App() {
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`;
 
   useEffect(() => {
-    fetch(cityAPI)
-      .then((response) => response.json())
-      // .then((data) => setCords(data[0]));
-      .then((data) => setCityList(data));
+    console.log(city);
+
+    // Fetching 5 cities from input
+    // if (city.length > 0) {
+    //   fetch(cityAPI)
+    //     .then((response) => response.json())
+    //     // .then((data) => setCords(data[0]));
+    //     .then((data) => setCityList(data));
+    // }
+    // console.log(cityList);
   }, [city]);
   const temp = Math.round(data?.main?.temp - 273.15);
 
@@ -35,17 +42,18 @@ function App() {
       .then((data) => setData(data));
   }, [lat, lon]);
 
-  // const fetchingWeatherData = () => {
-  //   fetch(url)
-  //     .then((response) => response.json())
-  //     .then((data) => setData(data));
-  // };
+  const fetchingWeatherData = () => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => setData(data));
+  };
 
   // Checking weather for given city
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(lat, lon);
-    // fetchingWeatherData();
+    // console.log(lat, lon);
+    // console.log(e.target);
+    fetchingWeatherData();
   };
 
   // Handle chosen city from search suggestions
@@ -54,7 +62,7 @@ function App() {
     const cord = e.target.value.split(",");
     setLat(cord[0]);
     setLon(cord[1]);
-    // fetchingWeatherData();
+    fetchingWeatherData();
   };
 
   return (
@@ -64,6 +72,7 @@ function App() {
           <h1>{`Weather Forecast`}</h1>
           <form onSubmit={handleSubmit}>
             <input
+              className="cityInput"
               onChange={handleChange}
               type="text"
               value={city}

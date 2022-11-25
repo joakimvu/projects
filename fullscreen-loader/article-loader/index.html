@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  </head>
+  <body>
+    <!-- loading -->
+    <div id="loadingBar" class="center">
+      <article class="article-loading-modal">
+        <section class="content">
+          <img src="./molnes.jpg" alt="" />
+          <h1>Krigsfast i Norge</h1>
+          <p>Vennligst vent. Artikkelen er klar til å leses hvert øyeblikk!</p>
+          <!-- <div class="loading-bar"></div> -->
+          <div class="w3-light-grey">
+            <div
+              id="myBar"
+              class="w3-container w3-green w3-center"
+              style="width: 20%"
+            >
+              0%
+            </div>
+          </div>
+        </section>
+      </article>
+    </div>
+    <!-- content -->
+    <div id="content">
+      <h1>Lorem Ipsum</h1>
+      <p>
+        Sed nec efficitur quam. Etiam ullamcorper tincidunt vulputate. Mauris
+        scelerisque volutpat urna ut convallis. Donec libero lacus, porta vitae
+        viverra vel, bibendum at velit. Aenean ac ipsum convallis sem facilisis
+        tempus interdum ut metus. Proin posuere neque ac imperdiet tincidunt.
+        Duis ut gravida odio. Praesent dignissim mauris id dolor bibendum, vel
+        elementum nisl maximus. Sed sed massa ultricies, pellentesque eros et,
+        elementum eros. Pellentesque pharetra purus vel tincidunt pulvinar.
+      </p>
+      <p>
+        Fusce sollicitudin lacus nec libero pellentesque, eu auctor ante mollis.
+        Maecenas porttitor, sem at mollis dictum, enim arcu molestie ex, sit
+        amet fermentum dolor lorem eu tellus. Vivamus convallis facilisis
+        sagittis. Ut gravida ipsum sed velit fringilla finibus. Quisque cursus
+        eros pellentesque sapien tincidunt blandit. Nam libero libero, consequat
+        non justo eu, mollis malesuada sapien. Donec molestie suscipit mauris
+        sed facilisis. Curabitur sed nunc nec magna convallis elementum. Quisque
+        in ex mauris. Aenean sed elit vitae risus elementum congue. Quisque
+        luctus nunc purus, ut vehicula est finibus vitae.
+      </p>
+    </div>
+    <!-- script -->
+    <script>
+      function move() {
+        const loadingbar = document.getElementById("myBar");
+        const content = document.getElementById("content");
+        const loadingModal = document.getElementById("loadingBar");
+        let width = 0;
+        let id = setInterval(frame, 50);
+        function frame() {
+          if (width >= 100) {
+            content.style.display = "block";
+            loadingModal.style.display = "none";
+            clearInterval(id);
+          } else {
+            content.style.display = "none";
+            loadingModal.style.display = "flex";
+            width++;
+            loadingbar.style.width = width + "%";
+            loadingbar.innerHTML = width * 1 + "%";
+          }
+        }
+      }
+      move();
+    </script>
+  </body>
+</html>
